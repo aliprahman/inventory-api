@@ -24,6 +24,9 @@
       "@config/*": [
         "./src/configs/*"
       ],
+      "@interceptor/*": [
+        "./src/utils/interceptor/*"
+      ],
       "@entity/*": [
         "./src/databases/entities/*"
       ],
