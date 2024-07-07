@@ -9,4 +9,9 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+  @Get('/sample-data')
+  getData() {
+    return this.appService.generateSampleData();
+  }
 }
