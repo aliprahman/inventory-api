@@ -7,12 +7,14 @@ import {
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import appConfig from '@config/app.config';
 import databaseConfig from '@config/database.config';
 import { ProductModule } from './modules/product/product.module';
 import { LoggerMiddleware } from './utils/middleware/logger.middleware';
+import { TempDataModule } from '@module/temp-data/temp-data.module';
 
 @Module({
   imports: [
@@ -33,10 +35,12 @@ import { LoggerMiddleware } from './utils/middleware/logger.middleware';
         logging: configService.get('app.env') == 'development',
         autoLoadEntities: true,
         synchronize: false,
+        namingStrategy: new SnakeNamingStrategy(),
       }),
       inject: [ConfigService],
     }),
     ProductModule,
+    TempDataModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -5,6 +5,7 @@ import {
   CallHandler,
   HttpException,
   HttpStatus,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -30,15 +31,18 @@ export class ResponseInterceptor implements NestInterceptor {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    const errorResponse: any = exception.getResponse();
+    const detail =
+      exception instanceof InternalServerErrorException
+        ? exception
+        : exception.getResponse();
 
     response.status(status).json({
       status: false,
       statusCode: status,
       path: request.url,
       result: {
-        error: errorResponse.error ? errorResponse.error : exception.message,
-        detail: exception.getResponse(),
+        error: exception.message,
+        detail,
       },
     });
   }

@@ -30,6 +30,9 @@
       "@entity/*": [
         "./src/databases/entities/*"
       ],
+      "@module/*": [
+        "./src/modules/*"
+      ],
     }
   }
 }
