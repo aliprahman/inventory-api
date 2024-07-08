@@ -17,8 +17,13 @@ export class TempDataController {
     private readonly httpService: HttpService,
   ) {}
 
-  @Get('/third-party-dummy-data')
+  @Get('/')
   getData() {
+    return this.tempDataService.getAllTempData();
+  }
+
+  @Get('/third-party-dummy-data')
+  getDataThirdParty() {
     return this.tempDataService.generateSampleData();
   }
 
